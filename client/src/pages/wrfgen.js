@@ -86,7 +86,6 @@ const WrfGen = () => {
     try {
       setSubmitAnimation(true);
       await wrfSubmitRequest(submitted);
-      console.log(submitted);
       featureRefs.current.closePopup();
       featureRefs.current.clearLayers();
       setDomain(null);

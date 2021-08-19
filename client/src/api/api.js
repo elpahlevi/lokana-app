@@ -1,19 +1,11 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const {
-  REACT_APP_API_REFRESH,
-  REACT_APP_API_USER,
-  REACT_APP_API_LOGIN,
-  REACT_APP_API_REGISTER,
-  REACT_APP_API_WRFGEN,
-} = process.env;
-
 // API call to refresh access token
 const refreshAccessToken = async () => {
   return await axios
     .post(
-      REACT_APP_API_REFRESH,
+      "/auth/refresh",
       { refreshToken: Cookies.get("refreshToken") },
       { headers: { "Content-Type": "application/json" }, withCredentials: true }
     )
@@ -25,7 +17,7 @@ const refreshAccessToken = async () => {
 
 // API call to login
 const login = async (data) => {
-  const response = await axios.post(REACT_APP_API_LOGIN, data, {
+  const response = await axios.post("/auth/login", data, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -35,7 +27,7 @@ const login = async (data) => {
 };
 
 const register = async (data) => {
-  const response = await axios.post(REACT_APP_API_REGISTER, data, {
+  const response = await axios.post("/auth/register", data, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -46,7 +38,7 @@ const register = async (data) => {
 
 // API Call to fetch user info
 const getUserInfo = async () => {
-  const response = await axios.get(REACT_APP_API_USER, {
+  const response = await axios.get("/auth/users", {
     headers: {
       "Content-Type": "application/json",
       authorization: Cookies.get("accessToken"),
@@ -57,7 +49,7 @@ const getUserInfo = async () => {
 };
 
 const wrfSubmitRequest = async (data) => {
-  const response = await axios.post(REACT_APP_API_WRFGEN, data, {
+  const response = await axios.post("/products/wrfgen", data, {
     headers: {
       "Content-Type": "application/json",
       authorization: Cookies.get("accessToken"),

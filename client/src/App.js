@@ -16,6 +16,14 @@ import "./App.css";
 // Function to trigger axios interceptors
 refreshCredentials();
 
+// Function to handle logout
+const onLogout = () => {
+  Cookies.remove("accessToken");
+  Cookies.remove("refreshToken");
+  Cookies.remove("uid");
+  return <Redirect to="/" />;
+};
+
 const App = () => {
   return (
     <>
@@ -25,15 +33,7 @@ const App = () => {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <ProtectedRoute path="/wrfgen" component={WrfGen} />
-          <Route
-            path="/logout"
-            component={() => {
-              Cookies.remove("accessToken");
-              Cookies.remove("refreshToken");
-              Cookies.remove("uid");
-              return <Redirect to="/" />;
-            }}
-          />
+          <Route path="/logout" component={onLogout} />
         </Switch>
       </HelmetProvider>
     </>

@@ -13,12 +13,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: [
-      "http://192.168.1.8:3000",
-      "http://127.0.0.1:3000",
-      "http://localhost:3000",
-      "http://103.31.38.97",
-    ], //to protect the api, which ip address are allowed to access it
+    origin: ["http://localhost:3000", "http://103.171.84.244"], //to protect the api, which ip address are allowed to access it
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "authorization"],

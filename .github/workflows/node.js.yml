@@ -20,13 +20,12 @@ jobs:
           CI: false
         run: 
           cd client
-          cat > .env <<EOL
-          REACT_APP_API_LOGIN=${{secrets.REACT_APP_API_LOGIN}}
-          REACT_APP_API_REGISTER=${{secrets.REACT_APP_API_REGISTER}}
-          REACT_APP_API_USER=${{secrets.REACT_APP_API_USER}}
-          REACT_APP_API_REFRESH=${{secrets.REACT_APP_API_REFRESH}}
-          REACT_APP_API_WRFGEN=${{secrets.REACT_APP_API_WRFGEN}}
-          EOL
+          touch .env
+          echo REACT_APP_API_LOGIN=${{secrets.REACT_APP_API_LOGIN}} >> .env
+          echo REACT_APP_API_REGISTER=${{secrets.REACT_APP_API_REGISTER}} >> .env
+          echo REACT_APP_API_USER=${{secrets.REACT_APP_API_USER}} >> .env
+          echo REACT_APP_API_REFRESH=${{secrets.REACT_APP_API_REFRESH}} >> .env
+          echo REACT_APP_API_WRFGEN=${{secrets.REACT_APP_API_WRFGEN}} >> .env
           npm install 
           npm run build
       # - name: Deploy the production to server

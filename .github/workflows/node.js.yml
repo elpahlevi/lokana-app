@@ -26,10 +26,14 @@ jobs:
           REACT_APP_API_REFRESH: ${{secrets.REACT_APP_API_REFRESH}}
           REACT_APP_API_WRFGEN: ${{secrets.REACT_APP_API_WRFGEN}}
         run: cd client && npm install && npm run build
+      - name: Create environment file
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_DB_URI_DEV: ${{secrets.DB_URI_DEV}}
+          envkey_DB_URI_PROD: ${{secrets.DB_URI_PROD}}
+          envkey_ACCESS_TOKEN_SECRET: ${{secrets.ACCESS_TOKEN_SECRET}}
+          envkey_REFRESH_TOKEN_SECRET: ${{secrets.REFRESH_TOKEN_SECRET}}
+          directory: /var/www/lokana-app/_work/lokana-app/lokana-app
+          file_name: .env
       # - name: Deploy the production to server
-      #   env:
-      #     DB_URI_DEV: ${{secrets.DB_URI_DEV}}
-      #     DB_URI_PROD: ${{secrets.DB_URI_PROD}}
-      #     ACCESS_TOKEN_SECRET: ${{secrets.ACCESS_TOKEN_SECRET}}
-      #     REFRESH_TOKEN_SECRET: ${{secrets.REFRESH_TOKEN_SECRET}}
       #   run: cd .. & pm2 stop lokana-app && pm2 start lokana-app && pm2 save && sudo service nginx restart

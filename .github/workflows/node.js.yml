@@ -37,3 +37,8 @@ jobs:
           echo ACCESS_TOKEN_SECRET=${{secrets.ACCESS_TOKEN_SECRET}} >> .env
           echo REFRESH_TOKEN_SECRET=${{secrets.REFRESH_TOKEN_SECRET}} >> .env
           npm install
+          pm2 stop lokana-app
+          pm2 start lokana-app
+          pm2 save
+          sudo service nginx restart
+          echo "Deployment success"

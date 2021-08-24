@@ -81,7 +81,7 @@ const Navbar = ({ showMenu, title }) => {
               <div className="flex justify-start items-center lg:w-0 lg:flex-1">
                 <Link to="/" className="flex justify-between items-center">
                   <span className="sr-only">{title}</span>
-                  <img className="h-8 w-auto sm:h-10" src={Logo} alt="" />
+                  <img className="h-10 w-11" src={Logo} alt="" />
                   <p className="text-lg font-medium uppercase text-gray-900">
                     {title}
                   </p>

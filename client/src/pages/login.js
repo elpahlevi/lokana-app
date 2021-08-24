@@ -66,11 +66,7 @@ const Login = () => {
         <div className="bg-gray-50 flex justify-center items-center flex-grow pb-28 px-4 sm:px-6 lg:px-8">
           <div className="max-w-md w-full space-y-8">
             <div>
-              <img
-                className="mx-auto h-20 w-auto"
-                src={Logo}
-                alt="logo-lokana"
-              />
+              <img className="mx-auto h-20 w-21" src={Logo} alt="logo-lokana" />
               <h2 className="mt-6 text-center text-3xl font-medium text-gray-900 font-mono">
                 Login
               </h2>

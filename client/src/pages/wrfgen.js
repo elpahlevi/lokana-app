@@ -18,7 +18,7 @@ const WrfGen = () => {
   const featureRefs = useRef();
   const [isOpen, setIsOpen] = useState(false);
   const [domain, setDomain] = useState(null);
-  const [openMyModal, setOpenMyModal] = useState(false);
+  const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const [submitAnimation, setSubmitAnimation] = useState(false);
 
   const {
@@ -59,6 +59,16 @@ const WrfGen = () => {
     return setIsOpen(true);
   };
 
+  const onSuccess = () => {
+    setTimeout(() => {
+      featureRefs.current.closePopup();
+      featureRefs.current.clearLayers();
+      setOpenSuccessModal(true);
+      setDomain(null);
+      setSubmitAnimation(false);
+    }, 3000);
+  };
+
   const onSubmitRequest = async ({
     variables,
     output,
@@ -84,13 +94,9 @@ const WrfGen = () => {
     };
 
     try {
-      setSubmitAnimation(true);
       await wrfSubmitRequest(submitted);
-      featureRefs.current.closePopup();
-      featureRefs.current.clearLayers();
-      setDomain(null);
-      setOpenMyModal(true);
-      return setSubmitAnimation(false);
+      setSubmitAnimation(true);
+      return onSuccess();
     } catch (err) {
       return console.log(err);
     }
@@ -116,10 +122,10 @@ const WrfGen = () => {
               onClose={onCancel}
               nestedModal={
                 <SuccessModal
-                  isOpen={openMyModal}
+                  isOpen={openSuccessModal}
                   onClose={() => {
                     reset();
-                    setOpenMyModal(false);
+                    setOpenSuccessModal(false);
                     setIsOpen(false);
                   }}
                 />

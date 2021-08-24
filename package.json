@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "set NODE_ENV=development&&nodemon index.js",
-    "start": "set NODE_ENV=production&&node index.js"
+    "dev": "export NODE_ENV=development&&nodemon index.js",
+    "test": "export NODE_ENV=test&&nodemon index.js",
+    "prod": "export NODE_ENV=production&&node index.js"
   },
-  "author": "",
+  "author": "Muhamad Reza Pahlevi",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.9"

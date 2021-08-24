@@ -28,5 +28,12 @@ jobs:
           echo REACT_APP_API_WRFGEN=${{secrets.REACT_APP_API_WRFGEN}} >> .env
           npm install 
           npm run build
-      # - name: Deploy the production to server
-      #   run: cd .. & pm2 stop lokana-app && pm2 start lokana-app && pm2 save && sudo service nginx restart
+      - name: Deploy the production to server
+        run: | 
+          cd ..
+          touch .env
+          echo DB_URI_DEV=${{secrets.DB_URI_DEV}} >> .env
+          echo DB_URI_PROD=${{secrets.DB_URI_PROD}} >> .env
+          echo ACCESS_TOKEN_SECRET=${{secrets.ACCESS_TOKEN_SECRET}} >> .env
+          echo REFRESH_TOKEN_SECRET=${{secrets.REFRESH_TOKEN_SECRET}} >> .env
+          npm install

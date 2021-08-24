@@ -18,6 +18,6 @@ jobs:
       - name: Install packages
         run: npm install
       - name: Install packages on client folder then build pages
-        run: cd client && npm install && npm audit fix && npm run build
+        run: cd client && npm install && npm run build
         env:
           CI: false

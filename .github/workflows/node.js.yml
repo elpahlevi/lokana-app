@@ -30,7 +30,7 @@ jobs:
           npm run build
       - name: Deploy the production to server
         run: |
-          cd ..
+          cd /var/www/lokana-app/_work/lokana-app/lokana-app
           touch .env
           echo DB_URI_DEV=${{secrets.DB_URI_DEV}} >> .env
           echo DB_URI_PROD=${{secrets.DB_URI_PROD}} >> .env

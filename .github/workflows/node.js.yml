@@ -29,7 +29,7 @@ jobs:
           npm install 
           npm run build
       - name: Deploy the production to server
-        run: | 
+        run: |
           cd ..
           touch .env
           echo DB_URI_DEV=${{secrets.DB_URI_DEV}} >> .env

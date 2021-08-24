@@ -21,3 +21,5 @@ jobs:
         run: cd client && npm install && npm run build
         env:
           CI: false
+      # - name: Deploy the production to server
+      #   run: cd .. & pm2 stop lokana-app && pm2 start lokana-app && pm2 save && sudo service nginx restart

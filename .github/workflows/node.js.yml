@@ -18,8 +18,18 @@ jobs:
       - name: Install packages
         run: npm install
       - name: Install packages on client folder then build pages
-        run: cd client && npm install && npm run build
         env:
           CI: false
+          REACT_APP_API_LOGIN: ${{secrets.REACT_APP_API_LOGIN}}
+          REACT_APP_API_REGISTER: ${{secrets.REACT_APP_API_REGISTER}}
+          REACT_APP_API_USER: ${{secrets.REACT_APP_API_USER}}
+          REACT_APP_API_REFRESH: ${{secrets.REACT_APP_API_REFRESH}}
+          REACT_APP_API_WRFGEN: ${{secrets.REACT_APP_API_WRFGEN}}
+        run: cd client && npm install && npm run build
       # - name: Deploy the production to server
+      #   env:
+      #     DB_URI_DEV: ${{secrets.DB_URI_DEV}}
+      #     DB_URI_PROD: ${{secrets.DB_URI_PROD}}
+      #     ACCESS_TOKEN_SECRET: ${{secrets.ACCESS_TOKEN_SECRET}}
+      #     REFRESH_TOKEN_SECRET: ${{secrets.REFRESH_TOKEN_SECRET}}
       #   run: cd .. & pm2 stop lokana-app && pm2 start lokana-app && pm2 save && sudo service nginx restart

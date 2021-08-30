@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { joiResolver } from "@hookform/resolvers/joi";
@@ -9,6 +9,7 @@ import Logo from "../images/logo-lokana-min.png";
 import { RegisterSchema } from "../helpers/FormValidation";
 import Navbar from "../components/Navbar/Navbar";
 import { register as signup } from "../api/api";
+import SuccessModal from "../components/Modal/Content/SuccessModal";
 
 const inputField = [
   {
@@ -42,6 +43,8 @@ const inputField = [
 ];
 
 const Register = () => {
+  const [open, setOpen] = useState(false);
+
   const {
     handleSubmit,
     register,
@@ -60,7 +63,7 @@ const Register = () => {
   const onSubmit = async (submittedData) => {
     try {
       await signup(submittedData);
-      return history.push("/login");
+      return setOpen(true);
     } catch (err) {
       setError("email", {
         type: "manual",
@@ -178,6 +181,16 @@ const Register = () => {
                 Register
               </button>
             </form>
+            <SuccessModal
+              isOpen={open}
+              onClose={() => {
+                setOpen(false);
+                history.push("/login");
+              }}
+              title="Thank You"
+              message="You can continue to access our products by click the login button below"
+              btnText="Go to login page"
+            />
           </div>
         </div>
       </div>

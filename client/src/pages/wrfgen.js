@@ -11,7 +11,7 @@ import PolygonDrawer from "../components/PolygonDrawer/PolygonDrawer";
 import SubmitPopup from "../components/PolygonDrawer/SubmitPopup";
 import Modal from "../components/Modal/Modal";
 import WrfRequestForm from "../components/FormContent/Products/Wrfgen/FormContent";
-import SuccessModal from "../components/Modal/Products/Wrfgen/SuccessModal";
+import SuccessModal from "../components/Modal/Content/SuccessModal";
 import { wrfSubmitRequest } from "../api/api";
 
 const WrfGen = () => {
@@ -79,8 +79,9 @@ const WrfGen = () => {
     endHours,
     purpose,
   }) => {
+    const wrfVar = variables.filter((v) => v !== false);
     const submitted = {
-      variables,
+      variables: wrfVar,
       output,
       resolution,
       simulationDate: {
@@ -94,7 +95,7 @@ const WrfGen = () => {
     };
 
     try {
-      await wrfSubmitRequest(submitted);
+      wrfSubmitRequest(submitted);
       setSubmitAnimation(true);
       return onSuccess();
     } catch (err) {
@@ -123,6 +124,10 @@ const WrfGen = () => {
               nestedModal={
                 <SuccessModal
                   isOpen={openSuccessModal}
+                  title="Request Submitted"
+                  message='Your request has been successfully submitted. You can check
+                  the progress on "My Request" page.'
+                  btnText="Go to My Request"
                   onClose={() => {
                     reset();
                     setOpenSuccessModal(false);

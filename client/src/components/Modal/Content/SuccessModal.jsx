@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
-import RoundCheck from "../../../../icons/RoundCheck";
+import RoundCheck from "../../../icons/RoundCheck";
 
-const SuccessModal = ({ isOpen, onClose }) => {
+const SuccessModal = ({ isOpen, onClose, title, message, btnText }) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
@@ -48,13 +48,8 @@ const SuccessModal = ({ isOpen, onClose }) => {
                 <RoundCheck className="w-14 h-14 mx-auto" />
               </Dialog.Title>
               <div className="mt-2">
-                <span className="text-lg text-black font-medium">
-                  Request Submitted
-                </span>
-                <p className="text-sm text-gray-500">
-                  Your request has been successfully submitted. You can check
-                  the progress on "My Request" page.
-                </p>
+                <span className="text-lg text-black font-medium">{title}</span>
+                <p className="text-sm text-gray-500">{message}</p>
               </div>
 
               <div className="mt-4">
@@ -63,7 +58,7 @@ const SuccessModal = ({ isOpen, onClose }) => {
                   className="inline-flex justify-center w-full py-3 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 select-none"
                   onClick={onClose}
                 >
-                  Go To My Request
+                  {btnText}
                 </button>
               </div>
             </div>

@@ -5,6 +5,8 @@ const {
   generateRefreshToken,
 } = require("../middlewares/Token");
 
+const { NODE_ENV } = process.env;
+
 const register = async (req, res) => {
   const { fullName, email, password, institution, usagePurpose } = req.body;
 
@@ -45,17 +47,17 @@ const login = async (req, res) => {
     const refreshToken = generateRefreshToken(user);
     res.cookie("accessToken", accessToken, {
       expires: new Date(Date.now() + 2 * 60 * 1000), // 2 minutes
-      secure: false,
+      secure: NODE_ENV != "development" ? true : false,
       sameSite: true,
     });
     res.cookie("refreshToken", refreshToken, {
       expires: new Date(Date.now() + 60 * 60 * 24 * 3 * 1000), // 3 days
-      secure: false,
+      secure: NODE_ENV != "development" ? true : false,
       sameSite: true,
     });
     res.cookie("uid", String(user._id), {
       expires: new Date(Date.now() + 60 * 60 * 24 * 3 * 1000), // 3 days
-      secure: false,
+      secure: NODE_ENV != "development" ? true : false,
       sameSite: true,
     });
 

@@ -9,7 +9,7 @@
     "prod": "export NODE_ENV=production&&node index.js"
   },
   "author": "Muhamad Reza Pahlevi",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "nodemon": "^2.0.9"
   },

@@ -9,6 +9,7 @@ import Home from "./pages/home";
 import Register from "./pages/register";
 import Login from "./pages/login";
 import WrfGen from "./pages/wrfgen";
+import Dashboard from "./pages/dashboard";
 
 // Import global css to override leaflet styles
 import "./App.css";
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <ProtectedRoute path="/wrfgen" component={WrfGen} />
+          <ProtectedRoute path="/dashboard" component={Dashboard} />
           <Route
             path="/logout"
             component={() => {

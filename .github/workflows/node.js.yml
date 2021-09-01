@@ -34,6 +34,7 @@ jobs:
           touch .env
           echo DB_URI_DEV=${{secrets.DB_URI_DEV}} >> .env
           echo DB_URI_PROD=${{secrets.DB_URI_PROD}} >> .env
+          echo CORS_ORIGIN=${{secrets.CORS_ORIGIN}} >> .env
           echo ACCESS_TOKEN_SECRET=${{secrets.ACCESS_TOKEN_SECRET}} >> .env
           echo REFRESH_TOKEN_SECRET=${{secrets.REFRESH_TOKEN_SECRET}} >> .env
           npm install

@@ -6,7 +6,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const port = 5500;
-const { NODE_ENV, DB_URI_PROD, DB_URI_DEV } = process.env;
+const { NODE_ENV, DB_URI_PROD, DB_URI_DEV, CORS_ORIGIN } = process.env;
 
 const authRoute = require("./routes/Auth");
 const productRoute = require("./routes/Products");
@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://lokana.tech"], //to protect the api, which ip address are allowed to access it
+    origin: CORS_ORIGIN.split(", "),
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "authorization"],

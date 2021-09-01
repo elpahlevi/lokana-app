@@ -1,7 +1,7 @@
 // Nanti akan berisi fungsi untuk generate token, verify token dan refresh token
 const jwt = require("jsonwebtoken");
 
-const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
+const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET, NODE_ENV } = process.env;
 
 const generateAccessToken = (user) => {
   return jwt.sign(
@@ -47,13 +47,13 @@ const generateNewAccessToken = (req, res) => {
 
     res.cookie("accessToken", newAccessToken, {
       expires: new Date(Date.now() + 2 * 60 * 1000), // 2 minutes on cookies
-      secure: false,
+      secure: NODE_ENV != "development" ? true : false,
       sameSite: true,
     });
 
     res.cookie("uid", String(data._id), {
       expires: new Date(Date.now() + 60 * 60 * 24 * 3 * 1000), // 3 days
-      secure: false,
+      secure: NODE_ENV != "development" ? true : false,
       sameSite: true,
     });
 

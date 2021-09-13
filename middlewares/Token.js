@@ -1,7 +1,13 @@
 // Nanti akan berisi fungsi untuk generate token, verify token dan refresh token
 const jwt = require("jsonwebtoken");
 
-const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET, NODE_ENV } = process.env;
+const {
+  ACCESS_TOKEN_SECRET,
+  REFRESH_TOKEN_SECRET,
+  NODE_ENV,
+  VERIFICATION_SECRET,
+  RESET_SECRET,
+} = process.env;
 
 const generateAccessToken = (user) => {
   return jwt.sign(
@@ -61,9 +67,41 @@ const generateNewAccessToken = (req, res) => {
   });
 };
 
+const generateEmailToken = (email) => {
+  return jwt.sign({ email }, VERIFICATION_SECRET, { expiresIn: "24h" });
+};
+
+const generateResetToken = (email) => {
+  return jwt.sign({ email }, RESET_SECRET, { expiresIn: "1h" });
+};
+
+const verifyEmailAddress = async (token) => {
+  return jwt.verify(token, VERIFICATION_SECRET, async (err, payload) => {
+    try {
+      return payload;
+    } catch {
+      return err;
+    }
+  });
+};
+
+const verifyResetToken = async (token) => {
+  return jwt.verify(token, RESET_SECRET, async (err, payload) => {
+    try {
+      return payload;
+    } catch {
+      return err;
+    }
+  });
+};
+
 module.exports = {
   generateAccessToken,
   generateRefreshToken,
   verifyToken,
   generateNewAccessToken,
+  generateEmailToken,
+  verifyEmailAddress,
+  generateResetToken,
+  verifyResetToken,
 };

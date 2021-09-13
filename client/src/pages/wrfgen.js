@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { withRouter } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { WrfgenRequestFormSchema } from "../helpers/FormValidation";
+import { wrfgenRequestFormSchema } from "../helpers/FormValidation";
 import { joiResolver } from "@hookform/resolvers/joi";
 
 import Navbar from "../components/Navbar/Navbar";
@@ -27,7 +27,7 @@ const WrfGen = () => {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: joiResolver(WrfgenRequestFormSchema),
+    resolver: joiResolver(wrfgenRequestFormSchema),
   });
   // when user draw a domain, it will check some condition
   const onCreated = (e) => {
@@ -42,7 +42,9 @@ const WrfGen = () => {
     const { lat: maxLat, lng: maxLon } = features.getBounds().getNorthEast();
     const { lat: minLat, lng: minLon } = features.getBounds().getSouthWest();
     const wrfDomain = { maxLat, maxLon, minLat, minLon };
-    return setDomain(wrfDomain);
+    setDomain(wrfDomain);
+    // Show popup when finished drawing
+    return features.openPopup();
   };
 
   // When user cancel, clear the domain
@@ -109,7 +111,7 @@ const WrfGen = () => {
         <title>Lokana - WRF Data Generator</title>
       </Helmet>
       <div className="flex flex-col h-screen">
-        <Navbar title="WRF Data Generator" />
+        <Navbar title="WRFGen" />
         <div className="flex justify-center items-center flex-grow relative">
           <Map>
             <PolygonDrawer featureRefs={featureRefs} onCreated={onCreated}>

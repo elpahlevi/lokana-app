@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
 
 import Logo from "../images/logo-lokana-min.png";
-import { RegisterSchema } from "../helpers/FormValidation";
+import { registerSchema } from "../helpers/FormValidation";
 import Navbar from "../components/Navbar/Navbar";
 import { register as signup } from "../api/api";
 import SuccessModal from "../components/Modal/Content/SuccessModal";
@@ -51,7 +51,7 @@ const Register = () => {
     formState: { errors },
     setError,
   } = useForm({
-    resolver: joiResolver(RegisterSchema),
+    resolver: joiResolver(registerSchema),
   });
   const history = useHistory();
 

@@ -7,6 +7,9 @@ const {
   REACT_APP_API_LOGIN,
   REACT_APP_API_REGISTER,
   REACT_APP_API_WRFGEN,
+  REACT_APP_API_EMAIL_VERIFICATION,
+  REACT_APP_API_FORGOT_PASSWORD,
+  REACT_APP_API_RESET_PASSWORD,
 } = process.env;
 
 // API call to refresh access token
@@ -44,7 +47,64 @@ const register = async (data) => {
   return response;
 };
 
-// API Call to fetch user info
+const emailVerification = async (data) => {
+  const response = await axios.get(REACT_APP_API_EMAIL_VERIFICATION, {
+    params: {
+      token: data,
+    },
+    headers: {
+      "Content-Type": "application/json",
+    },
+    withCredentials: true,
+  });
+  return response;
+};
+
+const resendEmailVerification = async (data) => {
+  const response = await axios.post(
+    REACT_APP_API_EMAIL_VERIFICATION,
+    { _id: data },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    }
+  );
+  return response;
+};
+
+const forgotPassword = async (data) => {
+  const response = await axios.post(REACT_APP_API_FORGOT_PASSWORD, data, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    withCredentials: true,
+  });
+  return response;
+};
+
+const resetVerification = async (data) => {
+  const response = await axios.get(REACT_APP_API_RESET_PASSWORD, {
+    params: {
+      token: data,
+    },
+    headers: { "Content-Type": "application/json" },
+    withCredentials: true,
+  });
+  return response;
+};
+
+const resetPassword = async (data) => {
+  const response = await axios.post(REACT_APP_API_RESET_PASSWORD, data, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    withCredentials: true,
+  });
+  return response;
+};
+
 const getUserInfo = async () => {
   const response = await axios.get(REACT_APP_API_USER, {
     headers: {
@@ -67,4 +127,15 @@ const wrfSubmitRequest = async (data) => {
   return response;
 };
 
-export { refreshAccessToken, login, getUserInfo, register, wrfSubmitRequest };
+export {
+  refreshAccessToken,
+  login,
+  getUserInfo,
+  register,
+  emailVerification,
+  resendEmailVerification,
+  forgotPassword,
+  resetVerification,
+  resetPassword,
+  wrfSubmitRequest,
+};

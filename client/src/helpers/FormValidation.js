@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-const RegisterSchema = Joi.object().keys({
+const registerSchema = Joi.object().keys({
   fullName: Joi.string()
     .min(3)
     .required()
@@ -93,7 +93,7 @@ const RegisterSchema = Joi.object().keys({
     }),
 });
 
-const LoginSchema = Joi.object().keys({
+const loginSchema = Joi.object().keys({
   email: Joi.string()
     .email({ tlds: { allow: false } })
     .error((errors) => {
@@ -131,7 +131,7 @@ const LoginSchema = Joi.object().keys({
     }),
 });
 
-const WrfgenRequestFormSchema = Joi.object().keys({
+const wrfgenRequestFormSchema = Joi.object().keys({
   variables: Joi.array()
     .has(Joi.string())
     .required()
@@ -261,4 +261,66 @@ const WrfgenRequestFormSchema = Joi.object().keys({
     }),
 });
 
-export { RegisterSchema, LoginSchema, WrfgenRequestFormSchema };
+const forgotPasswordSchema = Joi.object().keys({
+  email: Joi.string()
+    .email({ tlds: { allow: false } })
+    .error((errors) => {
+      errors.forEach((err) => {
+        switch (err.code) {
+          case "string.empty":
+            err.message = "Insert your email address";
+            break;
+          case "string.email":
+            err.message = "Email address is not valid";
+            break;
+          default:
+            break;
+        }
+      });
+      return errors;
+    }),
+});
+
+const resetPasswordSchema = Joi.object().keys({
+  newPassword: Joi.string()
+    .min(8)
+    .required()
+    .error((errors) => {
+      errors.forEach((err) => {
+        switch (err.code) {
+          case "string.empty":
+            err.message = "Insert your new password";
+            break;
+          case "string.min":
+            err.message = `Value should have at least ${err.local.limit} characters`;
+            break;
+          default:
+            break;
+        }
+      });
+      return errors;
+    }),
+  confirmNewPassword: Joi.string()
+    .valid(Joi.ref("newPassword"))
+    .required()
+    .error((errors) => {
+      errors.forEach((err) => {
+        switch (err.code) {
+          case "any.only":
+            err.message = "Password does not match";
+            break;
+          default:
+            break;
+        }
+      });
+      return errors;
+    }),
+});
+
+export {
+  registerSchema,
+  loginSchema,
+  wrfgenRequestFormSchema,
+  forgotPasswordSchema,
+  resetPasswordSchema,
+};

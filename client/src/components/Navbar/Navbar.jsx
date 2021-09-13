@@ -19,7 +19,7 @@ const products = [
   },
   {
     name: "CMIP6 Data Generator",
-    link: "/cmip6",
+    link: "/cmip6gen",
     description: "Generate your weather data using CMIP6 climate scenarios",
     icon: GlobeIcon,
   },
@@ -75,8 +75,8 @@ const Navbar = ({ showMenu, title }) => {
     <Popover className="relative bg-white z-10">
       {({ open }) => (
         <>
-          <div className="max-w-full mx-auto px-4 sm:px-6 border-b-2 border-gray-100">
-            <div className="flex justify-between items-center py-6 md:justify-start md:space-x-10">
+          <div className="max-w-full mx-auto px-4 lg:px-10 border-b border-gray-100">
+            <div className="flex justify-between items-center py-2.5 md:justify-start md:space-x-10">
               {/* Logo */}
               <div className="flex justify-start items-center lg:w-0 lg:flex-1">
                 <Link to="/" className="flex justify-between items-center">

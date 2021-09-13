@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 
 import Navbar from "../components/Navbar/Navbar";
 import Logo from "../images/logo-lokana-min.png";
-import { LoginSchema } from "../helpers/FormValidation";
+import { loginSchema } from "../helpers/FormValidation";
 import { login } from "../api/api";
 
 const inputField = [
@@ -32,7 +32,7 @@ const Login = () => {
     formState: { errors },
     setError,
   } = useForm({
-    resolver: joiResolver(LoginSchema),
+    resolver: joiResolver(loginSchema),
   });
   const history = useHistory();
 
@@ -107,7 +107,7 @@ const Login = () => {
               <div className="flex items-center justify-end">
                 <div className="text-sm">
                   <Link
-                    to="/"
+                    to="/forgot-password"
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
                     Forgot your password?

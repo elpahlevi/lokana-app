@@ -20,6 +20,7 @@ module.exports.sendVerificationEmail = (name, email, verificationToken) => {
       html: `<div>
               <h2>Hello ${name}. Welcome to Lokana</h2>
               <p>Thank you for registering. Please confirm your email by clicking on the following link</p>
+              <p>The link is only available for 24 hours</p>
               <a href=https://www.lokana.tech/verification/${verificationToken}> Click here</a>
             </div>`,
     })
@@ -36,6 +37,7 @@ module.exports.sendResetPassword = (email, name, resetToken) => {
               <h2>Hello ${name}</h2>
               <p>You requested to reset your password</p>
               <p>Please click the link below to reset your password</p>
+              <p>The link is only available for 1 hour</p>
               <a href=https://www.lokana.tech/reset-password/${resetToken}>Click to reset your password</a>
             </div>`,
     })

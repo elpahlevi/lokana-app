@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Popover, Transition, Menu } from "@headlessui/react";
 import { Link } from "react-router-dom";
 
-import ChevronDown from "../../icons/ChevronDown";
+import { ChevronDownIcon } from "@heroicons/react/outline";
 
 const DesktopMenu = ({ showMenu, user, products, navMenu, userMenu }) => {
   return (
@@ -21,7 +21,7 @@ const DesktopMenu = ({ showMenu, user, products, navMenu, userMenu }) => {
                     } group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:ouline-none`}
                   >
                     <span>Products</span>
-                    <ChevronDown
+                    <ChevronDownIcon
                       className={`${
                         open ? "text-gray-900" : "text-gray-500"
                       } ml-1 h-5 w-5 group-hover:text-gray-900`}

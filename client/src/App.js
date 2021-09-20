@@ -13,8 +13,8 @@ import ResetPassword from "./pages/resetPassword";
 import EmailVerified from "./pages/emailVerified";
 import WrfGen from "./pages/wrfgen";
 import Cmip6Gen from "./pages/cmip6";
-import Dashboard from "./pages/dashboard";
 import NotFound from "./pages/404";
+import Dashboard from "./pages/dashboard/";
 
 // Import global css to override leaflet styles
 import "./App.css";

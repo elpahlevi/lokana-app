@@ -5,7 +5,7 @@ import { joiResolver } from "@hookform/resolvers/joi";
 import { useHistory } from "react-router-dom";
 
 import Navbar from "../components/Navbar/Navbar";
-import Logo from "../images/logo-lokana-min.png";
+import Logo from "../assets/images/logo-lokana-min.png";
 import { forgotPasswordSchema } from "../helpers/FormValidation";
 import { forgotPassword } from "../api/api";
 import SuccessModal from "../components/Modal/Content/SuccessModal";

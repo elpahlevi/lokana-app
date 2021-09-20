@@ -1,13 +1,14 @@
 import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
-const Modal = ({ open, onClose, children, nestedModal }) => {
+const Modal = ({ open, onClose, children, nestedModal, completeButtonRef }) => {
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog
         as="div"
         className="fixed inset-0 z-10 overflow-y-auto"
         onClose={onClose}
+        initialFocus={completeButtonRef}
       >
         <div className="min-h-screen px-4 text-center">
           <Transition.Child

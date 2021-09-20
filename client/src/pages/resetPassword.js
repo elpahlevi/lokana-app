@@ -3,10 +3,10 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useHistory } from "react-router-dom";
+import { XCircleIcon } from "@heroicons/react/outline";
 
 import Navbar from "../components/Navbar/Navbar";
-import Logo from "../images/logo-lokana-min.png";
-import RoundX from "../icons/RoundX";
+import Logo from "../assets/images/logo-lokana-min.png";
 import { resetPasswordSchema } from "../helpers/FormValidation";
 import { resetVerification, resetPassword } from "../api/api";
 import SuccessModal from "../components/Modal/Content/SuccessModal";
@@ -142,7 +142,7 @@ const ResetPassword = (props) => {
             {!valid && (
               <>
                 <div className="text-red-600 items-center justify-center">
-                  <RoundX className="w-14 h-14 mx-auto" />
+                  <XCircleIcon className="w-14 h-14 mx-auto" />
                   <h2 className="mt-6 text-center text-3xl font-medium text-gray-900 font-mono">
                     Failed
                   </h2>

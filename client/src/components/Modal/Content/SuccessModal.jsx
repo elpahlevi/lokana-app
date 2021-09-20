@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
-import RoundCheck from "../../../icons/RoundCheck";
+import { CheckCircleIcon } from "@heroicons/react/outline";
 
 const SuccessModal = ({ isOpen, onClose, title, message, btnText }) => {
   return (
@@ -45,7 +45,10 @@ const SuccessModal = ({ isOpen, onClose, title, message, btnText }) => {
                 as="div"
                 className="text-green-600 items-center justify-center"
               >
-                <RoundCheck className="w-14 h-14 mx-auto" />
+                <CheckCircleIcon
+                  className="w-14 h-14 mx-auto"
+                  aria-hidden="true"
+                />
               </Dialog.Title>
               <div className="mt-2">
                 <span className="text-lg text-black font-medium">{title}</span>

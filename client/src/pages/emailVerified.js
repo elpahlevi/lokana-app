@@ -3,8 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { useHistory } from "react-router-dom";
 
 import Navbar from "../components/Navbar/Navbar";
-import RoundCheck from "../icons/RoundCheck";
-import RoundX from "../icons/RoundX";
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/outline";
 import { emailVerification } from "../api/api";
 
 const EmailVerified = (props) => {
@@ -34,7 +33,7 @@ const EmailVerified = (props) => {
             {valid && (
               <>
                 <div className="text-green-600 items-center justify-center">
-                  <RoundCheck className="w-14 h-14 mx-auto" />
+                  <CheckCircleIcon className="w-14 h-14 mx-auto" />
                   <h2 className="mt-6 text-center text-3xl font-medium text-gray-900 font-mono">
                     Success
                   </h2>
@@ -57,7 +56,7 @@ const EmailVerified = (props) => {
             {!valid && (
               <>
                 <div className="text-red-600 items-center justify-center">
-                  <RoundX className="w-14 h-14 mx-auto" />
+                  <XCircleIcon className="w-14 h-14 mx-auto" />
                   <h2 className="mt-6 text-center text-3xl font-medium text-gray-900 font-mono">
                     Failed
                   </h2>

@@ -3,9 +3,8 @@ import { Popover } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import Logo from "../../images/logo-lokana-min.png";
-import MenuIcon from "../../icons/Menu";
-import GlobeIcon from "../../icons/Globe";
+import Logo from "../../assets/images/logo-lokana-min.png";
+import { MenuIcon, GlobeIcon } from "@heroicons/react/outline";
 import MobileMenu from "./MobileMenu";
 import DesktopMenu from "./DesktopMenu";
 import { getUserInfo } from "../../api/api";
@@ -27,8 +26,8 @@ const products = [
 
 const userMenu = [
   {
-    name: "Your Requests",
-    link: "/requests",
+    name: "Dashboard",
+    link: "/dashboard",
   },
   {
     name: "Profile",
@@ -91,9 +90,7 @@ const Navbar = ({ showMenu, title }) => {
               <div className="-mr-2 -my-2 md:hidden">
                 <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none">
                   <span className="sr-only">Open menu</span>
-                  <div aria-hidden="true" className="text-black">
-                    <MenuIcon />
-                  </div>
+                  <MenuIcon className="h-6 w-6 text-black" aria-hidden="true" />
                 </Popover.Button>
               </div>
               {/* Menu for desktop */}

@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import Navbar from "../components/Navbar/Navbar";
-import SadIcon from "../icons/Sad";
+import { EmojiSadIcon } from "@heroicons/react/outline";
 import { useHistory } from "react-router-dom";
 
 const NotFound = () => {
@@ -16,7 +16,7 @@ const NotFound = () => {
         <div className="bg-gray-50 flex justify-center items-center flex-grow pb-28 px-4 sm:px-6 lg:px-8">
           <div className="max-w-md w-full space-y-8">
             <div className="text-gray-600 items-center justify-center">
-              <SadIcon className="w-14 h-14 mx-auto" />
+              <EmojiSadIcon className="w-14 h-14 mx-auto" />
               <h2 className="mt-6 text-center text-3xl font-medium text-gray-900 font-mono">
                 Sorry
               </h2>

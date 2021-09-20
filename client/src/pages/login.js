@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
 
 import Navbar from "../components/Navbar/Navbar";
-import Logo from "../images/logo-lokana-min.png";
+import Logo from "../assets/images/logo-lokana-min.png";
 import { loginSchema } from "../helpers/FormValidation";
 import { login } from "../api/api";
 
@@ -120,22 +120,6 @@ const Login = () => {
                   type="submit"
                   className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                  <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                    <svg
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                      />
-                    </svg>
-                  </span>
                   Login
                 </button>
               </div>

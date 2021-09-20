@@ -2,8 +2,8 @@ import React, { Fragment } from "react";
 import { Transition, Popover } from "@headlessui/react";
 import { Link } from "react-router-dom";
 
-import Logo from "../../images/logo-lokana-min.png";
-import CloseIcon from "../../icons/Close";
+import Logo from "../../assets/images/logo-lokana-min.png";
+import { XIcon } from "@heroicons/react/outline";
 
 const MobileMenu = ({ open, user, products, userMenu, navMenu }) => {
   return (
@@ -33,9 +33,7 @@ const MobileMenu = ({ open, user, products, userMenu, navMenu }) => {
                 <div className="-mr-2">
                   <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none">
                     <span className="sr-only">Close menu</span>
-                    <div aria-hidden="true" className="text-black">
-                      <CloseIcon />
-                    </div>
+                    <XIcon className="h-6 w-6 text-black" aria-hidden="true" />
                   </Popover.Button>
                 </div>
               </div>

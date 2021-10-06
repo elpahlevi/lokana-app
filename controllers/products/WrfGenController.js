@@ -1,108 +1,68 @@
-const WrfGen = require("../../models/products/WrfGenerator");
+import wrfgenModel from "../../models/products/wrfgen.model.js";
 
 const createRequest = async (req, res) => {
-  const { id } = req.user;
-  const request = new WrfGen({
-    userId: id,
-    requestId: `${id}-${Date.now()}`,
-    wrfVariables: req.body.variables,
-    output: req.body.output,
-    resolution: req.body.resolution,
-    simulationDate: req.body.simulationDate,
-    purpose: req.body.purpose,
-    domain: req.body.domain,
-  });
-
+  const request = new wrfgenModel(req.body);
   try {
     await request.save();
-    res.json({
-      status: "Success",
-    });
+    return res.status(201).json("Request created (WRFGen)");
   } catch (err) {
-    res.status(400).send(err);
+    return res.status(400).json(err);
   }
 };
 
 const getRequest = async (req, res) => {
   const { isAdmin } = req.user;
-  const id = req.query.id;
-  const reqId = req.query.reqId;
-
-  if (!reqId && !id) {
-    if (isAdmin) {
-      const request = await WrfGen.find();
-      return res.status(200).json({
-        status: "success get all users data (admin)",
-        request,
-      });
-    }
-    return res.status(200).json({ error: "please specify your query" });
-  }
-
-  // Admin and users privilege (line 44-64)
-  // Get all requests data from one user
-  if (id) {
-    const request = await WrfGen.find({ userId: id });
-    if (request.length > 0) {
-      return res
-        .status(200)
-        .json({ status: `list of requested data from user ${id}`, request });
-    } else {
-      return res.status(200).json({ error: "data not found" });
-    }
-  }
-
-  // Get one data from requestId
+  const { reqId } = req.query;
+  // Filter by request ID (user & admin)
   if (reqId) {
-    const request = await WrfGen.findOne({ requestId: reqId });
-    if (request) {
-      return res.status(200).json({ status: "one request matched", request });
-    } else {
-      return res.status(200).json({ error: "request not found" });
-    }
+    const request = await wrfgenModel.findById(reqId);
+    if (!request) return res.status(404).json("Request does not match");
+    return res.status(200).json(request);
+  }
+
+  // Get all WRFGen requests (admin)
+  if (isAdmin) {
+    const request = await wrfgenModel.find();
+    if (!request) return res.status(404).json("Requests not found (WRFGen)");
+    return res.status(200).json(request);
+  } else {
+    return res.status(403).json("You are not authorized");
   }
 };
 
-const updateRequest = async (req, res) => {
+const editRequest = async (req, res) => {
+  const { reqId: _id } = req.query;
   const { isAdmin } = req.user;
-  const reqId = req.query.reqId;
 
-  if (isAdmin) {
-    const update = await WrfGen.findOneAndUpdate(
-      { requestId: reqId },
-      {
-        status: req.body.status,
-        finishedDate: req.body.finishedDate,
-        outputLink: req.body.outputLink,
-        fileSize: req.body.fileSize,
-      }
-    );
-
-    try {
-      await update.save();
-      return res.status(200).send("Data has been updated");
-    } catch (err) {
-      return res.status(403).send("You are not allowed");
+  if (isAdmin && _id) {
+    const request = await wrfgenModel.findByIdAndUpdate(_id, {
+      status: req.body.status,
+      finishedDate: req.body.finishedDate,
+      link: req.body.link,
+      fileSize: req.body.fileSize,
+    });
+    if (request) {
+      await request.save();
+      return res.status(200).json("Request updated");
     }
+    return res.status(404).json("Request not found");
   }
-  return res.status(200).json({ error: "You are not allowed" });
+  return res.status(404).json("Invalid endpoint");
 };
 
 const deleteRequest = async (req, res) => {
+  const { reqId: _id } = req.query;
   const { isAdmin } = req.user;
 
-  if (isAdmin) {
-    const reqId = req.query.reqId;
-    const deleteRequest = await WrfGen.findOneAndDelete({ requestId: reqId });
-
-    try {
-      await deleteRequest.remove();
-      res.status(200).send("Data has been deleted");
-    } catch (err) {
-      res.status(400).json({ status: err });
+  if (_id && isAdmin) {
+    const request = await wrfgenModel.findByIdAndDelete(_id);
+    if (request) {
+      await request.remove();
+      return res.status(200).json("Request deleted");
     }
+    return res.status(404).json("Request not found");
   }
-  return res.status(200).json({ error: "You are not allowed" });
+  return res.status(404).json("Invalid endpoint");
 };
 
-module.exports = { createRequest, getRequest, updateRequest, deleteRequest };
+export { createRequest, getRequest, editRequest, deleteRequest };

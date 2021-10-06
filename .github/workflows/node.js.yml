@@ -21,14 +21,14 @@ jobs:
         run: |
           cd client
           touch .env
-          echo REACT_APP_API_LOGIN=${{secrets.REACT_APP_API_LOGIN}} >> .env
-          echo REACT_APP_API_REGISTER=${{secrets.REACT_APP_API_REGISTER}} >> .env
-          echo REACT_APP_API_EMAIL_VERIFICATION=${{secrets.REACT_APP_API_EMAIL_VERIFICATION}} >> .env
-          echo REACT_APP_API_FORGOT_PASSWORD=${{secrets.REACT_APP_API_FORGOT_PASSWORD}} >> .env
-          echo REACT_APP_API_RESET_PASSWORD=${{secrets.REACT_APP_API_RESET_PASSWORD}} >> .env
-          echo REACT_APP_API_USER=${{secrets.REACT_APP_API_USER}} >> .env
-          echo REACT_APP_API_REFRESH=${{secrets.REACT_APP_API_REFRESH}} >> .env
-          echo REACT_APP_API_WRFGEN=${{secrets.REACT_APP_API_WRFGEN}} >> .env
+          echo REACT_APP_REGISTER_API=${{secrets.REACT_APP_REGISTER_API}} >> .env
+          echo REACT_APP_LOGIN_API=${{secrets.REACT_APP_LOGIN_API}} >> .env
+          echo REACT_APP_REFRESH_API=${{secrets.REACT_APP_REFRESH_API}} >> .env
+          echo REACT_APP_USER_API=${{secrets.REACT_APP_USER_API}} >> .env
+          echo REACT_APP_EMAIL_API=${{secrets.REACT_APP_EMAIL_API}} >> .env
+          echo REACT_APP_FORGOT_API=${{secrets.REACT_APP_FORGOT_API}} >> .env
+          echo REACT_APP_RESET_API=${{secrets.REACT_APP_RESET_API}} >> .env
+          echo REACT_APP_WRFGEN_API=${{secrets.REACT_APP_WRFGEN_API}} >> .env
           npm install 
           npm run build
       - name: Deploy the production to server
@@ -37,9 +37,9 @@ jobs:
           touch .env
           echo DB_URI_DEV=${{secrets.DB_URI_DEV}} >> .env
           echo DB_URI_PROD=${{secrets.DB_URI_PROD}} >> .env
-          echo CORS_ORIGIN=${{secrets.CORS_ORIGIN}} >> .env
-          echo ACCESS_TOKEN_SECRET=${{secrets.ACCESS_TOKEN_SECRET}} >> .env
-          echo REFRESH_TOKEN_SECRET=${{secrets.REFRESH_TOKEN_SECRET}} >> .env
+          echo ORIGIN=${{secrets.ORIGIN}} >> .env
+          echo ACCESS_SECRET=${{secrets.ACCESS_SECRET}} >> .env
+          echo REFRESH_SECRET=${{secrets.REFRESH_SECRET}} >> .env
           echo VERIFICATION_SECRET=${{secrets.VERIFICATION_SECRET}} >> .env
           echo RESET_SECRET=${{secrets.RESET_SECRET}} >> .env
           echo EMAIL_USER=${{secrets.EMAIL_USER}} >> .env

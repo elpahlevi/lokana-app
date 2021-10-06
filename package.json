@@ -2,11 +2,12 @@
   "name": "lokana-services",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
+  "type":"module",
   "scripts": {
-    "dev": "export NODE_ENV=development&&nodemon index.js",
-    "test": "export NODE_ENV=test&&nodemon index.js",
-    "prod": "export NODE_ENV=production&&node index.js"
+    "dev": "export NODE_ENV=development && nodemon server.js",
+    "test": "export NODE_ENV=test && nodemon server.js",
+    "prod": "export NODE_ENV=production && node server.js"
   },
   "author": "Muhamad Reza Pahlevi",
   "license": "MIT",

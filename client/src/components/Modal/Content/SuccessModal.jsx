@@ -1,15 +1,14 @@
 import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-
 import { CheckCircleIcon } from "@heroicons/react/outline";
 
-const SuccessModal = ({ isOpen, onClose, title, message, btnText }) => {
+const SuccessModal = ({ open, close, title, message, btnText }) => {
   return (
-    <Transition appear show={isOpen} as={Fragment}>
+    <Transition appear show={open} as={Fragment}>
       <Dialog
         as="div"
         className="fixed inset-0 z-10 overflow-y-auto"
-        onClose={onClose}
+        onClose={close}
       >
         <div className="min-h-screen px-4 text-center">
           <Transition.Child
@@ -23,7 +22,6 @@ const SuccessModal = ({ isOpen, onClose, title, message, btnText }) => {
           >
             <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
           </Transition.Child>
-
           {/* This element is to trick the browser into centering the modal contents. */}
           <span
             className="inline-block h-screen align-middle"
@@ -54,12 +52,11 @@ const SuccessModal = ({ isOpen, onClose, title, message, btnText }) => {
                 <span className="text-lg text-black font-medium">{title}</span>
                 <p className="text-sm text-gray-500">{message}</p>
               </div>
-
               <div className="mt-4">
                 <button
                   type="button"
-                  className="inline-flex justify-center w-full py-3 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 select-none"
-                  onClick={onClose}
+                  className="inline-flex justify-center w-full py-3 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 select-none"
+                  onClick={close}
                 >
                   {btnText}
                 </button>
@@ -71,4 +68,5 @@ const SuccessModal = ({ isOpen, onClose, title, message, btnText }) => {
     </Transition>
   );
 };
+
 export default SuccessModal;

@@ -1,6 +1,6 @@
 import L from "leaflet";
 
-export default function TooltipText() {
+export default function tooltipText() {
   const { draw, edit } = L.drawLocal;
   draw.toolbar.buttons.rectangle = "Draw a domain";
   draw.handlers.rectangle.tooltip.start = "Click and drag to draw a domain";

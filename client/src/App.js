@@ -2,22 +2,19 @@ import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import Cookies from "js-cookie";
-
-import refreshCredentials from "./api/credentials";
-import ProtectedRoute from "./components/ProtectedRoute";
-import Home from "./pages/home";
-import Register from "./pages/register";
-import Login from "./pages/login";
-import ForgotPassword from "./pages/forgotPassword";
-import ResetPassword from "./pages/resetPassword";
-import EmailVerified from "./pages/emailVerified";
-import WrfGen from "./pages/wrfgen";
-import Cmip6Gen from "./pages/cmip6";
-import NotFound from "./pages/404";
-import Dashboard from "./pages/dashboard/";
-
-// Import global css to override leaflet styles
 import "./App.css";
+import { refreshCredentials } from "./api/token";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Home from "./pages/Home";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+import EmailVerification from "./pages/EmailVerification";
+import WrfGen from "./pages/Wrfgen";
+import Cmip6Gen from "./pages/Cmip6gen";
+import NotFound from "./pages/404";
+// import Dashboard from "./pages/dashboard/";
 
 // Function to trigger axios interceptors
 refreshCredentials();
@@ -31,14 +28,11 @@ const App = () => {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/forgot-password" component={ForgotPassword} />
-          <Route path="/reset-password/:resetToken" component={ResetPassword} />
-          <Route
-            path="/verification/:verificationToken"
-            component={EmailVerified}
-          />
+          <Route path="/reset-password/:token" component={ResetPassword} />
+          <Route path="/verification/:token" component={EmailVerification} />
           <ProtectedRoute path="/wrfgen" component={WrfGen} />
           <ProtectedRoute path="/cmip6gen" component={Cmip6Gen} />
-          <ProtectedRoute path="/dashboard" component={Dashboard} />
+          {/* <ProtectedRoute path="/dashboard" component={Dashboard} /> */}
           <Route
             path="/logout"
             component={() => {

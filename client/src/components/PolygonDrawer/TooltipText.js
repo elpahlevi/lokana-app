@@ -1,6 +1,6 @@
 import L from "leaflet";
 
-export default function tooltipText() {
+const tooltipText = () => {
   const { draw, edit } = L.drawLocal;
   draw.toolbar.buttons.rectangle = "Draw a domain";
   draw.handlers.rectangle.tooltip.start = "Click and drag to draw a domain";
@@ -11,4 +11,6 @@ export default function tooltipText() {
   edit.toolbar.buttons.removeDisabled = "No domain to remove";
   edit.handlers.edit.tooltip.text = "Drag handles or markers to edit a domain.";
   edit.handlers.remove.tooltip.text = "Click on a domain to remove.";
-}
+};
+
+export default tooltipText;

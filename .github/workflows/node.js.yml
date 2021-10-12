@@ -28,6 +28,7 @@ jobs:
           echo REACT_APP_EMAIL_API=${{secrets.REACT_APP_EMAIL_API}} >> .env
           echo REACT_APP_FORGOT_API=${{secrets.REACT_APP_FORGOT_API}} >> .env
           echo REACT_APP_RESET_API=${{secrets.REACT_APP_RESET_API}} >> .env
+          echo REACT_APP_PRODUCTS_API=${{secrets.REACT_APP_PRODUCTS_API}} >> .env
           echo REACT_APP_WRFGEN_API=${{secrets.REACT_APP_WRFGEN_API}} >> .env
           npm install 
           npm run build

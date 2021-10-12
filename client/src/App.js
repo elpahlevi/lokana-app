@@ -14,7 +14,8 @@ import EmailVerification from "./pages/EmailVerification";
 import WrfGen from "./pages/Wrfgen";
 import Cmip6Gen from "./pages/Cmip6gen";
 import NotFound from "./pages/404";
-// import Dashboard from "./pages/dashboard/";
+import Dashboard from "./pages/Dashboard";
+import DashboardAdmin from "./pages/Dashboard2";
 
 // Function to trigger axios interceptors
 refreshCredentials();
@@ -32,7 +33,8 @@ const App = () => {
           <Route path="/verification/:token" component={EmailVerification} />
           <ProtectedRoute path="/wrfgen" component={WrfGen} />
           <ProtectedRoute path="/cmip6gen" component={Cmip6Gen} />
-          {/* <ProtectedRoute path="/dashboard" component={Dashboard} /> */}
+          <ProtectedRoute path="/dashboard" component={Dashboard} />
+          <Route path="/dashboard2" component={DashboardAdmin} />
           <Route
             path="/logout"
             component={() => {

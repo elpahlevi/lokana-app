@@ -1,13 +1,14 @@
 import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
-const Modal = ({ open, close, children, nestedModal }) => {
+const Modal = ({ open, close, initialFocus, children, nestedModal }) => {
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog
         as="div"
         className="fixed inset-0 z-10 overflow-y-auto"
         onClose={close}
+        initialFocus={initialFocus}
       >
         <div className="min-h-screen px-4 text-center">
           <Transition.Child
@@ -32,7 +33,7 @@ const Modal = ({ open, close, children, nestedModal }) => {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+            <div className="inline-block w-full max-w-md p-4 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
               {children}
             </div>
           </Transition.Child>

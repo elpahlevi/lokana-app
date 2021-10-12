@@ -5,12 +5,13 @@ import {
   MenuIcon,
   GlobeIcon,
   XIcon,
-  // BellIcon,
+  BellIcon,
 } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Logo from "../../assets/images/logo-lokana-min.png";
 import { userInfo } from "../../api";
+import { classNames } from "../../helpers/utils";
 
 const products = [
   {
@@ -42,7 +43,7 @@ const userMenu = [
   },
 ];
 
-const Navbar = ({ title, showMenu, showAuth }) => {
+const Navbar = ({ title, showMenu, showAuth, showLogo }) => {
   const [user, setUser] = useState(null);
   const [fetchUser, setFetchUser] = useState(true);
 
@@ -73,7 +74,13 @@ const Navbar = ({ title, showMenu, showAuth }) => {
             {/* Left side */}
             <div className="flex items-center">
               {/* Logo */}
-              <Link to="/" className="flex items-center space-x-1">
+              <Link
+                to="/"
+                className={classNames(
+                  "flex items-center space-x-1",
+                  !showLogo && "lg:hidden",
+                )}
+              >
                 <img src={Logo} alt="logo-lokana" className="h-10 w-11" />
                 <span className="font-medium text-base uppercase block">
                   {title}
@@ -150,59 +157,102 @@ const Navbar = ({ title, showMenu, showAuth }) => {
                 </div>
                 <div className="hidden space-x-6 lg:block">
                   {user ? (
-                    <Menu as="div" className="relative">
-                      {({ open }) => (
-                        <>
-                          <div>
-                            <Menu.Button className="bg-white flex text-sm rounded-ful items-center focus:outline-none space-x-3">
-                              <span className="sr-only">Open user menu</span>
-                              <span
-                                className={`text-base font-medium hover:text-gray-900 ${
-                                  open ? "text-gray-900" : "text-gray-500"
-                                }`}
-                              >
-                                {user.name}
-                              </span>
-                              {/* Change to username's first letter */}
-                              <span className="flex h-10 w-10 rounded-full bg-gray-600 justify-center items-center text-white font-bold text-base">
-                                {user.name[0]}
-                              </span>
-                            </Menu.Button>
-                          </div>
-                          <Transition
-                            show={open}
-                            as={Fragment}
-                            enter="transition ease-out duration-100"
-                            enterFrom="transform opacity-0 scale-95"
-                            enterTo="transform opacity-100 scale-100"
-                            leave="transition ease-in duration-75"
-                            leaveFrom="transform opacity-100 scale-100"
-                            leaveTo="transform opacity-0 scale-95"
-                          >
-                            <Menu.Items
-                              static
-                              className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    <div className="flex items-center space-x-6">
+                      {/* Notification */}
+                      <Menu as="div" className="relative">
+                        {({ open }) => (
+                          <>
+                            <div>
+                              <Menu.Button className="bg-white flex text-sm rounded-full items-center focus:outline-none">
+                                <span className="sr-only">Open user menu</span>
+                                <BellIcon
+                                  className="h-6 w-6 text-gray-500 hover:text-gray-700"
+                                  aria-hidden="true"
+                                />
+                              </Menu.Button>
+                            </div>
+                            <Transition
+                              show={open}
+                              as={Fragment}
+                              enter="transition ease-out duration-100"
+                              enterFrom="transform opacity-0 scale-95"
+                              enterTo="transform opacity-100 scale-100"
+                              leave="transition ease-in duration-75"
+                              leaveFrom="transform opacity-100 scale-100"
+                              leaveTo="transform opacity-0 scale-95"
                             >
-                              {userMenu.map((item, index) => (
-                                <Menu.Item key={index}>
-                                  {({ active }) => (
-                                    <Link
-                                      key={index}
-                                      to={item.link}
-                                      className={`${
-                                        active ? "bg-gray-100" : ""
-                                      } block px-4 py-2 text-sm text-gray-700`}
-                                    >
-                                      {item.name}
-                                    </Link>
-                                  )}
-                                </Menu.Item>
-                              ))}
-                            </Menu.Items>
-                          </Transition>
-                        </>
-                      )}
-                    </Menu>
+                              <Menu.Items
+                                static
+                                className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                              >
+                                {userMenu.map((item, index) => (
+                                  <Menu.Item key={index}>
+                                    {({ active }) => (
+                                      <Link
+                                        key={index}
+                                        to={item.link}
+                                        className={`${
+                                          active ? "bg-gray-100" : ""
+                                        } block px-4 py-2 text-sm text-gray-700`}
+                                      >
+                                        {item.name}
+                                      </Link>
+                                    )}
+                                  </Menu.Item>
+                                ))}
+                              </Menu.Items>
+                            </Transition>
+                          </>
+                        )}
+                      </Menu>
+                      {/* Menu */}
+                      <Menu as="div" className="relative">
+                        {({ open }) => (
+                          <>
+                            <div>
+                              <Menu.Button className="bg-white flex text-sm rounded-full items-center focus:outline-none">
+                                <span className="sr-only">Open user menu</span>
+                                {/* Change to username's first letter */}
+                                <span className="flex h-10 w-10 rounded-full bg-gray-600 justify-center items-center text-white font-bold text-base">
+                                  {user.name[0]}
+                                </span>
+                              </Menu.Button>
+                            </div>
+                            <Transition
+                              show={open}
+                              as={Fragment}
+                              enter="transition ease-out duration-100"
+                              enterFrom="transform opacity-0 scale-95"
+                              enterTo="transform opacity-100 scale-100"
+                              leave="transition ease-in duration-75"
+                              leaveFrom="transform opacity-100 scale-100"
+                              leaveTo="transform opacity-0 scale-95"
+                            >
+                              <Menu.Items
+                                static
+                                className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                              >
+                                {userMenu.map((item, index) => (
+                                  <Menu.Item key={index}>
+                                    {({ active }) => (
+                                      <Link
+                                        key={index}
+                                        to={item.link}
+                                        className={`${
+                                          active ? "bg-gray-100" : ""
+                                        } block px-4 py-2 text-sm text-gray-700`}
+                                      >
+                                        {item.name}
+                                      </Link>
+                                    )}
+                                  </Menu.Item>
+                                ))}
+                              </Menu.Items>
+                            </Transition>
+                          </>
+                        )}
+                      </Menu>
+                    </div>
                   ) : (
                     <>
                       <Link
@@ -321,6 +371,7 @@ Navbar.defaultProps = {
   title: "Lokana",
   showMenu: true,
   showAuth: true,
+  showLogo: true,
 };
 
 Navbar.propTypes = {

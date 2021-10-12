@@ -6,6 +6,10 @@ const requestSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "userModel",
   },
+  product: {
+    type: String,
+    required: true,
+  },
   variables: [
     {
       type: String,

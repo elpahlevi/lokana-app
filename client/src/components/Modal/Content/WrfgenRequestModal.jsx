@@ -14,7 +14,7 @@ const WrfgenRequestForm = ({
   setOpenSubmittedModal,
   setOpen,
 }) => {
-  const wrfVar = ["rain", "rhum", "tmax", "tmin", "srad", "wspd"];
+  const wrfVar = ["rain", "rhum", "tmax", "tmin", "wspd"];
   const format = [
     { placeholder: "NetCDF (.nc)", value: "nc" },
     { placeholder: "GeoTIFF (.tif)", value: "tif" },

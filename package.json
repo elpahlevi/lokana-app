@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "dev": "export NODE_ENV=development && nodemon server.js",
     "test": "export NODE_ENV=test && nodemon server.js",

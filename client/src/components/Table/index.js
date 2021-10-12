@@ -2,19 +2,17 @@ import React, { useMemo } from "react";
 import { useTable, useFilters, useSortBy, usePagination } from "react-table";
 import {
   ChevronDoubleLeftIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
   ChevronDoubleRightIcon,
-} from "@heroicons/react/solid";
-import { Button, PageButton } from "../Button/Button";
-import { classNames } from "../../../shared/Utils";
-import { SortIcon, SortUpIcon, SortDownIcon } from "../../../assets/icons";
+  ChevronRightIcon,
+  ChevronLeftIcon,
+} from "@heroicons/react/outline";
+import { classNames } from "../../helpers/utils";
+import { SortIcon, SortUpIcon, SortDownIcon } from "../../assets/icons";
+import PageButton from "./PageButton";
 
 export function SelectColumnFilter({
   column: { filterValue, setFilter, preFilteredRows, id, render },
 }) {
-  // Calculate the options for filtering
-  // using the preFilteredRows
   const options = useMemo(() => {
     const options = new Set();
     preFilteredRows.forEach((row) => {
@@ -23,12 +21,11 @@ export function SelectColumnFilter({
     return [...options.values()];
   }, [id, preFilteredRows]);
 
-  // Render a multi-select box
   return (
-    <label className="flex gap-x-2 items-baseline">
+    <label className="flex gap-2 items-baseline">
       <span className="text-gray-700">{render("Header")}: </span>
       <select
-        className="rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        className="rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
         name={id}
         id={id}
         value={filterValue}
@@ -37,8 +34,8 @@ export function SelectColumnFilter({
         }}
       >
         <option value="">All</option>
-        {options.map((option, i) => (
-          <option key={i} value={option}>
+        {options.map((option, index) => (
+          <option key={index} value={option}>
             {option}
           </option>
         ))}
@@ -49,7 +46,6 @@ export function SelectColumnFilter({
 
 export function StatusPill({ value }) {
   const status = value ? value.toLowerCase() : "unknown";
-
   return (
     <span
       className={classNames(
@@ -57,7 +53,7 @@ export function StatusPill({ value }) {
         status.startsWith("created") ? "bg-blue-100 text-blue-800" : null,
         status.startsWith("ongoing") ? "bg-yellow-100 text-yellow-800" : null,
         status.startsWith("finished") ? "bg-green-100 text-green-800" : null,
-        status.startsWith("rejected") ? "bg-red-100 text-red-800" : null
+        status.startsWith("rejected") ? "bg-red-100 text-red-800" : null,
       )}
     >
       {status}
@@ -65,17 +61,26 @@ export function StatusPill({ value }) {
   );
 }
 
-function Table({ columns, data }) {
-  // Use the state and functions returned from useTable to build your UI
+export function DetailButton({ id, onClick }) {
+  return (
+    <button
+      id={id}
+      type="button"
+      className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-700"
+      onClick={onClick}
+    >
+      Details
+    </button>
+  );
+}
+
+const Table = ({ columns, data }) => {
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     prepareRow,
-    page, // Instead of using 'rows', we'll use page,
-    // which has only the rows for the active page
-
-    // The rest of these things are super handy, too ;)
+    page,
     canPreviousPage,
     canNextPage,
     pageOptions,
@@ -84,21 +89,11 @@ function Table({ columns, data }) {
     nextPage,
     previousPage,
     setPageSize,
-
     state,
-  } = useTable(
-    {
-      columns,
-      data,
-    },
-    useFilters, // useFilters!
-    useSortBy,
-    usePagination // new
-  );
-
-  // Render the UI for your table
+  } = useTable({ columns, data }, useFilters, useSortBy, usePagination);
   return (
     <>
+      {/* Filter component */}
       <div className="sm:flex sm:gap-x-2">
         {headerGroups.map((headerGroup) =>
           headerGroup.headers.map((column) =>
@@ -106,11 +101,11 @@ function Table({ columns, data }) {
               <div className="mt-2 sm:mt-0" key={column.id}>
                 {column.render("Filter")}
               </div>
-            ) : null
-          )
+            ) : null,
+          ),
         )}
       </div>
-      {/* table */}
+      {/* Table content */}
       <div className="mt-4 flex flex-col border rounded px-4 sm:px-0">
         <div className="-my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -123,18 +118,16 @@ function Table({ columns, data }) {
                   {headerGroups.map((headerGroup) => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
                       {headerGroup.headers.map((column) => (
-                        // Add the sorting props to control sorting. For this example
-                        // we can add them into the header props
                         <th
                           scope="col"
                           className="group px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           {...column.getHeaderProps(
-                            column.getSortByToggleProps()
+                            column.getSortByToggleProps(),
                           )}
                         >
                           <div className="flex items-center justify-between">
                             {column.render("Header")}
-                            {/* Add a sort direction indicator */}
+                            {/* Sort direction indicator */}
                             <span>
                               {column.isSorted ? (
                                 column.isSortedDesc ? (
@@ -189,14 +182,28 @@ function Table({ columns, data }) {
       </div>
       {/* Pagination */}
       <div className="py-3 flex items-center justify-between">
+        {/* Mobile version */}
         <div className="flex-1 flex justify-between sm:hidden">
-          <Button onClick={() => previousPage()} disabled={!canPreviousPage}>
+          {/* Previous page */}
+          <button
+            type="button"
+            className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+            onClick={() => previousPage()}
+            disabled={!canPreviousPage}
+          >
             Previous
-          </Button>
-          <Button onClick={() => nextPage()} disabled={!canNextPage}>
+          </button>
+          {/* Next page */}
+          <button
+            type="button"
+            className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+            onClick={() => nextPage()}
+            disabled={!canNextPage}
+          >
             Next
-          </Button>
+          </button>
         </div>
+        {/* Screen larger than mobile devices (sm) */}
         <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
           <div className="flex gap-x-2 items-baseline">
             <span className="text-sm text-gray-700">
@@ -225,6 +232,7 @@ function Table({ columns, data }) {
               className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
               aria-label="Pagination"
             >
+              {/* First page */}
               <PageButton
                 className="rounded-l-md"
                 onClick={() => gotoPage(0)}
@@ -236,6 +244,7 @@ function Table({ columns, data }) {
                   aria-hidden="true"
                 />
               </PageButton>
+              {/* Previous page */}
               <PageButton
                 onClick={() => previousPage()}
                 disabled={!canPreviousPage}
@@ -246,6 +255,7 @@ function Table({ columns, data }) {
                   aria-hidden="true"
                 />
               </PageButton>
+              {/* Next page */}
               <PageButton onClick={() => nextPage()} disabled={!canNextPage}>
                 <span className="sr-only">Next</span>
                 <ChevronRightIcon
@@ -253,6 +263,7 @@ function Table({ columns, data }) {
                   aria-hidden="true"
                 />
               </PageButton>
+              {/* Last page */}
               <PageButton
                 className="rounded-r-md"
                 onClick={() => gotoPage(pageCount - 1)}
@@ -270,6 +281,6 @@ function Table({ columns, data }) {
       </div>
     </>
   );
-}
+};
 
 export default Table;

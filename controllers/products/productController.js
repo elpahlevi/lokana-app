@@ -16,4 +16,12 @@ const getProducts = async (req, res) => {
   }
 };
 
-export { getProducts };
+const getProductDetails = async (req, res) => {
+  const { reqId } = req.params;
+  // Later replaced with joined data from multiple schema
+  const request = await wrfgenModel.findById(reqId);
+  if (!request) return res.status(404).json("Data not found!");
+  return res.status(200).json(request);
+};
+
+export { getProducts, getProductDetails };

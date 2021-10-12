@@ -8,6 +8,7 @@ const {
   REACT_APP_EMAIL_API,
   REACT_APP_FORGOT_API,
   REACT_APP_RESET_API,
+  REACT_APP_PRODUCTS_API,
   REACT_APP_WRFGEN_API,
 } = process.env;
 
@@ -84,6 +85,28 @@ const resetPassword = async (data) => {
   return response;
 };
 
+const getOneRequestedProduct = async (reqId) => {
+  const response = await axios.get(`${REACT_APP_PRODUCTS_API}/${reqId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      authorization: Cookies.get("accessToken"),
+    },
+    withCredentials: true,
+  });
+  return response;
+};
+
+const getAllRequestedProducts = async () => {
+  const response = await axios.get(REACT_APP_PRODUCTS_API, {
+    headers: {
+      "Content-Type": "application/json",
+      authorization: Cookies.get("accessToken"),
+    },
+    withCredentials: true,
+  });
+  return response;
+};
+
 const submitWrfgenRequest = async (data) => {
   const response = await axios.post(REACT_APP_WRFGEN_API, data, {
     headers: {
@@ -103,5 +126,7 @@ export {
   forgotPassword,
   verifyForgotPassword,
   resetPassword,
+  getOneRequestedProduct,
+  getAllRequestedProducts,
   submitWrfgenRequest,
 };

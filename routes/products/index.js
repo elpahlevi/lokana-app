@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { getProducts } from "../../controllers/products/productController.js";
+const productRouter = Router();
+import {
+  getProductDetails,
+  getProducts,
+} from "../../controllers/products/productController.js";
 import {
   createRequest,
   deleteRequest,
@@ -7,12 +11,12 @@ import {
   getRequest,
 } from "../../controllers/products/wrfgenController.js";
 import { verifyAccessToken } from "../../middleware/token.js";
-const productRouter = Router();
 
 /* 
   All products
 */
-productRouter.get("/", [verifyAccessToken], getProducts); // Admin only
+productRouter.get("/", [verifyAccessToken], getProducts); // Admin and user
+productRouter.get("/:reqId", [verifyAccessToken], getProductDetails); //Admin and user (get one request data)
 
 /* 
   WRFGen Endpoint

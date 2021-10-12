@@ -78,6 +78,7 @@ const WrfGen = () => {
     const wrfVar = variables.filter((v) => v !== false);
     const data = {
       createdBy: Cookies.get("uid"),
+      product: "WRFGen",
       variables: wrfVar,
       format,
       resolution,

@@ -14,11 +14,13 @@ import Table, {
 } from "../components/Table";
 import RequestDetailModal from "../components/Modal/Content/RequestDetailModal";
 import { getOneRequestedProduct, getAllRequestedProducts } from "../api";
+import { getHour, getFullDate, getFormat } from "../helpers/utils";
 
 const Dashboard = () => {
   const [open, setOpen] = useState(false);
   const [fetchData, setFetchData] = useState(true);
   const [reqData, setReqData] = useState([]);
+  const [req, setReq] = useState({});
   let initialFocus = useRef(null);
 
   useEffect(() => {
@@ -73,7 +75,7 @@ const Dashboard = () => {
     return {
       id: item._id,
       products: item.product,
-      submitDate: item.submitDate.split("T")[0].split("-").reverse().join("-"), //dd-mm-yyyy
+      submitDate: getFullDate(item.submitDate),
       status: item.status,
     };
   });
@@ -82,7 +84,32 @@ const Dashboard = () => {
 
   const openModal = async (e) => {
     const response = await getOneRequestedProduct(e.target.id);
-    console.log(response.data);
+    const {
+      status,
+      product,
+      format,
+      resolution,
+      finishedDate,
+      submitDate,
+      variables,
+      simDate,
+      fileSize,
+    } = response.data;
+    const reqData = {
+      status,
+      product,
+      format: getFormat(format),
+      resolution,
+      submitDate: getFullDate(submitDate),
+      finishedDate: finishedDate.split("T"),
+      variables: variables.join(", ").toUpperCase(),
+      startDate: getFullDate(simDate.startDate),
+      endDate: getFullDate(simDate.endDate),
+      startHours: getHour(simDate.startHours),
+      endHours: getHour(simDate.endHours),
+      fileSize,
+    };
+    setReq(reqData);
     return setOpen(true);
   };
 
@@ -111,7 +138,7 @@ const Dashboard = () => {
         },
       },
     ],
-    [],
+    []
   );
 
   const onClose = () => {
@@ -177,6 +204,7 @@ const Dashboard = () => {
           open={open}
           onClose={onClose}
           initialFocus={initialFocus}
+          data={req}
         />
       </div>
     </>

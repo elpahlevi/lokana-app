@@ -1,9 +1,6 @@
 import { Router } from "express";
 const productRouter = Router();
-import {
-  getProductDetails,
-  getProducts,
-} from "../../controllers/products/productController.js";
+import { getProducts } from "../../controllers/products/productController.js";
 import {
   createRequest,
   deleteRequest,
@@ -13,10 +10,9 @@ import {
 import { verifyAccessToken } from "../../middleware/token.js";
 
 /* 
-  All products
+  All products and one product
 */
 productRouter.get("/", [verifyAccessToken], getProducts); // Admin and user
-productRouter.get("/:reqId", [verifyAccessToken], getProductDetails); //Admin and user (get one request data)
 
 /* 
   WRFGen Endpoint

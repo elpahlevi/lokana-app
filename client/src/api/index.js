@@ -86,7 +86,8 @@ const resetPassword = async (data) => {
 };
 
 const getOneRequestedProduct = async (reqId) => {
-  const response = await axios.get(`${REACT_APP_PRODUCTS_API}/${reqId}`, {
+  const response = await axios.get(REACT_APP_PRODUCTS_API, {
+    params: { reqId },
     headers: {
       "Content-Type": "application/json",
       authorization: Cookies.get("accessToken"),

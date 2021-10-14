@@ -26,7 +26,7 @@ const getRequest = async (req, res) => {
     if (!request) return res.status(404).json("Requests not found (WRFGen)");
     return res.status(200).json(request);
   } else {
-    return res.status(403).json("You are not authorized");
+    return res.status(403).json("You are not authorized 😋");
   }
 };
 
